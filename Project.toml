@@ -3,6 +3,9 @@ uuid = "4bf1c077-f681-4777-9800-1b017dbc86bc"
 authors = ["hradet <radet@lapplace.univ-tlse.fr> and contributors"]
 version = "0.1.0"
 
+[deps]
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+
 [compat]
 julia = "1"
 
