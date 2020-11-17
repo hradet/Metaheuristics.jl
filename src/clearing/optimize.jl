@@ -9,9 +9,11 @@ function optimize(f::Function,
 	timedout, t0 = false, time()
 
     # Initialize pop
+	println("Population initialization...")
     initialize_population!(f, lb, ub, method, options)
 
     # Algorithm
+	println("Starting optimization...")
     while it < options.iterations && it_unchanged < options.itmax_unchanged && !timedout
 		# Iteration
         it += 1
