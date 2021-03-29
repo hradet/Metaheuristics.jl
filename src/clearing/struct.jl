@@ -37,14 +37,16 @@ mutable struct Options
 	time_limit::Int64 # in hours
 	iterations::Int64
 	multithreads::Bool
+	verbose::Bool
 
 	Options(;log = true,
 		reltol = 1e-10,
 		itmax_unchanged = 100,
-		time_limit = 1,
+		time_limit = 168,
 		iterations = 100,
-		multithreads = true) =
-		new(log, reltol, itmax_unchanged, time_limit, iterations, multithreads)
+		multithreads = true,
+		verbose = true) =
+		new(log, reltol, itmax_unchanged, time_limit, iterations, multithreads, verbose)
 end
 
 ### Results

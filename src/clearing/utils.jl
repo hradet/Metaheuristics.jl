@@ -15,7 +15,7 @@ isconverged!(new::Float64, old::Float64, reltol::Float64, iteration::Int64) = ab
 # Check time
 istimedout(t::Float64, t0::Float64, time_limit::Int64) = (t - t0) / 3600. > time_limit
 # Status
-function status(it::Int64, it_unchanged::Int64, timedout::Bool, options::Options)
+function get_status(it::Int64, it_unchanged::Int64, timedout::Bool, options::Options)
     if it >= options.iterations
         status = "+ Status: Maximum iteration number is reached"
     elseif !timedout
@@ -30,10 +30,10 @@ function show_results(results::MetaheuristicResults)
     if results.options.log
         # Summary
         println("___")
-        println("")
+        println()
         println("Optimization summary...")
         println("___")
-        println("")
+        println()
         # Status
         println(results.status)
         # Minimizer
@@ -42,5 +42,30 @@ function show_results(results::MetaheuristicResults)
         println("+ Minimum: ", results.minimum)
         # Iteration
         println("+ Iterations: ", results.iterations)
+    end
+end
+# Show verbose in REPL
+function show_verbose(it::Int64, time::Float64, obj::Float64)
+    # Header
+    if it == 1
+        println()
+        println("___")
+        println()
+        println("Iteration     Objective        Time (s)")
+        # Write to log
+        open("metaheuristic_log.txt", "a+") do io
+            write(io, "Iteration;Objective;Time (s) \n")
+        end
+    end
+    # Iteration
+    print(it)
+    # Objective
+    print("             ", round(obj, digits = 2))
+    # Time
+    print("        ", round(time, digits = 1))
+    println()
+    # Write to log
+    open("metaheuristic_log.txt", "a+") do io
+        write(io, string(it, ";", round(obj, digits = 2), ";", round(time, digits = 1), "\n"))
     end
 end

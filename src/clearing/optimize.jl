@@ -29,11 +29,14 @@ function optimize(f::Function,
 
 		# Check timing
 		timedout = istimedout(time(), t0, options.time_limit)
+
+		# Verbose
+		options.verbose ? show_verbose(it, time() - t0, method.population[1,end]) : nothing
     end
 
 	# Results
 	results = MetaheuristicResults(method,
-	status(it, it_unchanged, timedout, options),
+	get_status(it, it_unchanged, timedout, options),
 	method.population[1,1:length(lb)],
 	method.population[1,end],
 	it,
